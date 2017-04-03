@@ -58,3 +58,4 @@ group :test do
   gem 'selenium-webdriver'
 end
 gem 'rest-client'
+gem 'twilio-ruby'
