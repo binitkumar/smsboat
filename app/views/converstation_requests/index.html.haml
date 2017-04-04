@@ -6,6 +6,7 @@
       %th Requester
       %th Expert
       %th Registerd Number 
+      %th Status 
       %th
       %th
       %th
@@ -16,6 +17,7 @@
         %td= converstation_request.requester.try(:contact_no)
         %td= converstation_request.expert.try(:contact_no)
         %td= converstation_request.registered_number.try(:number)
+        %td= converstation_request.status
         %td= link_to 'Show', converstation_request
         %td= link_to 'Edit', edit_converstation_request_path(converstation_request)
         %td= link_to 'Destroy', converstation_request, :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -18,7 +18,7 @@ class SmsHooksController < ApplicationController
 
     expert = nil
 
-    received_from = params[:from]
+    received_from = params[:From]
     requester = Requester.find_by_contact_no received_from
     expert = Expert.find_by_contact_no received_from if requester.nil?
 
@@ -71,5 +71,6 @@ class SmsHooksController < ApplicationController
       end 
     end
       
+    render xml: "<message>success</message>"
   end
 end

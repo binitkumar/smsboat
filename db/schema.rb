@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404190331) do
+ActiveRecord::Schema.define(version: 20170404200103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "converstation_requests", force: :cascade do |t|
     t.integer  "requester_id"
-    t.integer  "exptert_id"
+    t.integer  "expert_id"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.string   "status",               default: "Open"
