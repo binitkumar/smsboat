@@ -1,0 +1,10 @@
+%p
+  %b Name:
+  = @expert.name
+%p
+  %b Contact no:
+  = @expert.contact_no
+
+= link_to 'Edit', edit_expert_path(@expert)
+\|
+= link_to 'Back', experts_path

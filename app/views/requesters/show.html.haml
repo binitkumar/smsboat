@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Contact no:
+  = @requester.contact_no
+
+= link_to 'Edit', edit_requester_path(@requester)
+\|
+= link_to 'Back', requesters_path

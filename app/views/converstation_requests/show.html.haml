@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Requester:
+  = @converstation_request.requester_id
+%p
+  %b Exptert:
+  = @converstation_request.exptert_id
+
+= link_to 'Edit', edit_converstation_request_path(@converstation_request)
+\|
+= link_to 'Back', converstation_requests_path

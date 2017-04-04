@@ -1,0 +1,13 @@
+= form_for @requester do |f|
+  - if @requester.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@requester.errors.count, "error")} prohibited this requester from being saved:"
+      %ul
+        - @requester.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :contact_no
+    = f.text_field :contact_no
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,23 @@
+%h1 Listing requesters
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Contact no
+      %th SMS messages 
+      %th
+      %th
+      %th
+
+  %tbody
+    - @requesters.each do |requester|
+      %tr
+        %td= requester.contact_no
+        %td= requester.sms_messages.count
+        %td= link_to 'Show', requester
+        %td= link_to 'Edit', edit_requester_path(requester)
+        %td= link_to 'Destroy', requester, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Requester', new_requester_path

@@ -1,0 +1,25 @@
+%h1 Listing converstation requests
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Requester
+      %th Expert
+      %th Registerd Number 
+      %th
+      %th
+      %th
+
+  %tbody
+    - @converstation_requests.each do |converstation_request|
+      %tr
+        %td= converstation_request.requester.try(:contact_no)
+        %td= converstation_request.expert.try(:contact_no)
+        %td= converstation_request.registered_number.try(:number)
+        %td= link_to 'Show', converstation_request
+        %td= link_to 'Edit', edit_converstation_request_path(converstation_request)
+        %td= link_to 'Destroy', converstation_request, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Converstation request', new_converstation_request_path

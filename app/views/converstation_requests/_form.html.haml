@@ -1,0 +1,16 @@
+= form_for @converstation_request do |f|
+  - if @converstation_request.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@converstation_request.errors.count, "error")} prohibited this converstation_request from being saved:"
+      %ul
+        - @converstation_request.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :requester_id
+    = f.number_field :requester_id
+  .field
+    = f.label :exptert_id
+    = f.number_field :exptert_id
+  .actions
+    = f.submit 'Save'

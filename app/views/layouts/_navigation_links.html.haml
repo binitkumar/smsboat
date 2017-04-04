@@ -1,0 +1,9 @@
+- if current_user
+  .link= link_to "Sign Out", destroy_user_session_path, method: :delete
+  .link= link_to "Experts", experts_path
+  .link= link_to "Registered Numbers", registered_numbers_path
+  .link= link_to "SMS Logs", sms_messages_path
+  .link= link_to "Converstation Requests", converstation_requests_path
+  .link= link_to "Requesters", requesters_path
+- else
+  .link= link_to "Sign in", new_user_session_path

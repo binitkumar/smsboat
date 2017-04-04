@@ -10,10 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403184053) do
+ActiveRecord::Schema.define(version: 20170404190331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "converstation_requests", force: :cascade do |t|
+    t.integer  "requester_id"
+    t.integer  "exptert_id"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "status",               default: "Open"
+    t.text     "message"
+    t.integer  "registered_number_id"
+  end
+
+  create_table "experts", force: :cascade do |t|
+    t.string   "name"
+    t.string   "contact_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "registered_numbers", force: :cascade do |t|
+    t.string   "number"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "status",     default: "Open"
+  end
+
+  create_table "requesters", force: :cascade do |t|
+    t.string   "contact_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sms_messages", force: :cascade do |t|
+    t.integer  "requester_id"
+    t.integer  "expert_id"
+    t.text     "message"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "sending_to"
+    t.string   "sending_from"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

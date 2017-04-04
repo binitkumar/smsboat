@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Requester:
+  = @sms_message.requester_id
+%p
+  %b Expert:
+  = @sms_message.expert_id
+%p
+  %b Message:
+  = @sms_message.message
+
+= link_to 'Edit', edit_sms_message_path(@sms_message)
+\|
+= link_to 'Back', sms_messages_path

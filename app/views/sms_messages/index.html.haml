@@ -1,0 +1,29 @@
+%h1 Listing sms messages
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Requester
+      %th Expert
+      %th Message
+      %th Sending From 
+      %th Sending To
+      %th
+      %th
+      %th
+
+  %tbody
+    - @sms_messages.each do |sms_message|
+      %tr
+        %td= sms_message.requester.try(:contact_no)
+        %td= sms_message.expert.try(:contact_no)
+        %td= sms_message.message
+        %td= sms_message.sending_from
+        %td= sms_message.sending_to
+        %td= link_to 'Show', sms_message
+        %td= link_to 'Edit', edit_sms_message_path(sms_message)
+        %td= link_to 'Destroy', sms_message, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Sms message', new_sms_message_path

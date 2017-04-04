@@ -1,0 +1,19 @@
+= form_for @sms_message do |f|
+  - if @sms_message.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@sms_message.errors.count, "error")} prohibited this sms_message from being saved:"
+      %ul
+        - @sms_message.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :requester_id
+    = f.number_field :requester_id
+  .field
+    = f.label :expert_id
+    = f.number_field :expert_id
+  .field
+    = f.label :message
+    = f.text_area :message
+  .actions
+    = f.submit 'Save'
