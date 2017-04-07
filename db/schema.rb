@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404200103) do
+ActiveRecord::Schema.define(version: 20170407212622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(version: 20170404200103) do
     t.integer  "registered_number_id"
   end
 
+  create_table "credit_points", force: :cascade do |t|
+    t.integer  "points"
+    t.integer  "requester_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "experts", force: :cascade do |t|
     t.string   "name"
     t.string   "contact_no"
@@ -34,9 +41,11 @@ ActiveRecord::Schema.define(version: 20170404200103) do
 
   create_table "registered_numbers", force: :cascade do |t|
     t.string   "number"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "status",     default: "Open"
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.string   "status",       default: "Open"
+    t.datetime "release_time", default: '2017-04-07 20:49:26'
+    t.boolean  "subscribed",   default: false
   end
 
   create_table "requesters", force: :cascade do |t|

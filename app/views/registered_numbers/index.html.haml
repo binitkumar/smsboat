@@ -4,6 +4,8 @@
   %thead
     %tr
       %th Number
+      %th Release Time
+      %th Status
       %th
       %th
       %th
@@ -12,6 +14,8 @@
     - @registered_numbers.each do |registered_number|
       %tr
         %td= registered_number.number
+        %td= registered_number.release_time
+        %td= registered_number.status
         %td= link_to 'Show', registered_number
         %td= link_to 'Edit', edit_registered_number_path(registered_number)
         %td= link_to 'Destroy', registered_number, :method => :delete, :data => { :confirm => 'Are you sure?' }

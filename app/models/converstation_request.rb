@@ -7,15 +7,25 @@ class ConverstationRequest < ApplicationRecord
   before_create :allocate_registered_number_and_notify_experts
 
   def allocate_registered_number_and_notify_experts
-    open_registered_nubmer = RegisteredNumber.where(status: 'Open').first
+    RegisteredNumber.where("release_time < ?", Time.now).each do |num|
+      unless num.subscribed
+        num.status = 'Open'
+        num.converstation_requests.each do |req|
+          req.update_attribute(:status, 'Closed')
+        end
+        num.save
+      end
+    end
 
-    if open_registered_nubmer
-      self.registered_number = open_registered_nubmer
+    open_registered_number = RegisteredNumber.where(status: 'Open').first
+    open_registered_number.update_attribute(:status, 'Used')
+    if open_registered_number
+      self.registered_number = open_registered_number
       Expert.all.each do |expert|
         SmsMessage.create(
           expert: expert, 
           message: 'Person available for conversation. Respond to this number to join this conversation',
-          sending_from: open_registered_nubmer.number,
+          sending_from: open_registered_number.number,
           sending_to: expert.contact_no
         )
       end

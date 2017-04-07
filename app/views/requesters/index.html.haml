@@ -4,7 +4,7 @@
   %thead
     %tr
       %th Contact no
-      %th SMS messages 
+      %th SMS messages
       %th
       %th
       %th
@@ -13,7 +13,7 @@
     - @requesters.each do |requester|
       %tr
         %td= requester.contact_no
-        %td= requester.sms_messages.count
+        %td #{requester.sms_messages.count}/#{requester.total_credit_points.to_i + Rails.application.secrets.free_sms_count} 
         %td= link_to 'Show', requester
         %td= link_to 'Edit', edit_requester_path(requester)
         %td= link_to 'Destroy', requester, :method => :delete, :data => { :confirm => 'Are you sure?' }

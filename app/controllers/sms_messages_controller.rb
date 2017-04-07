@@ -4,7 +4,7 @@ class SmsMessagesController < ApplicationController
   # GET /sms_messages
   # GET /sms_messages.json
   def index
-    @sms_messages = SmsMessage.all
+    @sms_messages = SmsMessage.all.order("created_at desc")
   end
 
   # GET /sms_messages/1

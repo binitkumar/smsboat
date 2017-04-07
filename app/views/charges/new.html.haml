@@ -1,0 +1,16 @@
+= form_tag charges_path do
+  = hidden_field_tag :amount, params[:quantity].to_i * 50
+  = hidden_field_tag :requester_id, params[:requester_id]
+  %article
+    - if flash[:error].present?
+      #error_explanation
+        %p= flash[:error]
+    %label.amount
+      %span Amount: $#{(params[:quantity].to_i/2).round(2)}
+
+  %script{ "src" => "https://checkout.stripe.com/checkout.js",
+    "class" => "stripe-button",
+    "data-key" => Rails.configuration.stripe[:publishable_key],
+    "data-description" => "A month's subscription",
+    "data-amount" => "#{params[:quantity].to_i * 50}",
+    "data-locale" => "auto"}

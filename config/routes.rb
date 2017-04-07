@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :charges do
+    collection do
+      get :preview
+      get :success
+    end
+  end
   resources :sms_messages
   resources :converstation_requests
   resources :requesters

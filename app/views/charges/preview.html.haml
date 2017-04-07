@@ -1,0 +1,5 @@
+%h3 Add credit to your account
+%form{action: new_charge_path, method: :get}
+  %input{type: :hidden, name: :requester_id, value: params[:requester_id]}
+  %input{type: :number, name: :quantity }/
+  %input{type: :submit, value: 'Buy now!', class: 'btn btn-primary'}

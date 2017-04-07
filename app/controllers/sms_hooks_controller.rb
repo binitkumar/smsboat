@@ -1,4 +1,5 @@
 class SmsHooksController < ApplicationController
+
   def receive_conversation_request
     requester_contact_no = params[:From]
     message = params[:Body]
@@ -15,6 +16,8 @@ class SmsHooksController < ApplicationController
     message = params[:Body]
     
     connecting_line = RegisteredNumber.find_by_number(connecting_no)
+    connecting_line.update_column(:release_time, Time.now + 24.hours )
+    connecting_line.save!
 
     expert = nil
 
@@ -39,6 +42,7 @@ class SmsHooksController < ApplicationController
         )
       elsif booked_request
         SmsMessage.create(
+          requester: booked_request.requester,
           expert: expert,
           message: message,
           sending_from: booked_request.registered_number.number,
@@ -54,13 +58,15 @@ class SmsHooksController < ApplicationController
       end
     elsif requester
       if requester_booked_request
-        SmsMessage.create(
-          requester: requester,
-          message: message,
-          sending_from: connecting_no,
-          sending_to: requester_booked_request.expert.contact_no
-        )
-       
+        if uses_limit_available(requester, connecting_no)
+          SmsMessage.create(
+            expert: requester_booked_request.expert,
+            requester: requester,
+            message: message,
+            sending_from: connecting_no,
+            sending_to: requester_booked_request.expert.contact_no
+          )
+        end
       else
         SmsMessage.create(
           requester: requester,
@@ -72,5 +78,22 @@ class SmsHooksController < ApplicationController
     end
       
     render xml: "<message>success</message>"
+  end
+
+  def uses_limit_available requester, connecting_no
+    uses_limit = Rails.application.secrets.free_sms_count + requester.total_credit_points
+
+    if uses_limit < requester.sms_messages.count
+      get_credit_url = "http://#{Rails.application.secrets.domain_name}/charges/preview?requester_id=#{requester.id}"
+      shorten = @url_shortener_client.shorten( get_credit_url )
+      SmsMessage.create(
+        message: "Uses limit exhausted. Please add credit to your account using this link #{shorten.shortUrl}",
+        sending_from: connecting_no,
+        sending_to: requester.contact_no
+      )
+      false 
+    else
+      true
+    end    
   end
 end

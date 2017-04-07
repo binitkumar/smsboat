@@ -59,3 +59,6 @@ group :test do
 end
 gem 'rest-client'
 gem 'twilio-ruby'
+gem 'stripe'
+gem 'url_shortener'
+gem 'binding_of_caller'
