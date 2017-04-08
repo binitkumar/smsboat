@@ -5,6 +5,6 @@ class SmsMessage < ApplicationRecord
   before_create :send_message
 
   def send_message
-    TwillioSms.send_message(self.sending_to, self.sending_from, message)
+    TwilioSms.send_message(self.sending_to, self.sending_from, message)
   end
 end
