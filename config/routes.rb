@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :credit_points, only: [:index]
   resources :charges do
     collection do
       get :preview

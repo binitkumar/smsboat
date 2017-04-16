@@ -1,0 +1,13 @@
+%h1 Credit points purchases
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Requester
+      %th Points
+
+  %tbody
+    - @credit_points.each do |point|
+      %tr
+        %td= point.requester.contact_no
+        %td= point.points

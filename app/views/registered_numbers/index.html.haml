@@ -6,6 +6,7 @@
       %th Number
       %th Release Time
       %th Status
+      %th Subscribed
       %th
       %th
       %th
@@ -16,6 +17,7 @@
         %td= registered_number.number
         %td= registered_number.release_time
         %td= registered_number.status
+        %td= registered_number.subscribed
         %td= link_to 'Show', registered_number
         %td= link_to 'Edit', edit_registered_number_path(registered_number)
         %td= link_to 'Destroy', registered_number, :method => :delete, :data => { :confirm => 'Are you sure?' }
