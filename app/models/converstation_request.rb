@@ -8,7 +8,7 @@ class ConverstationRequest < ApplicationRecord
   after_create :schedule_subscription_sms
 
   def schedule_subscription_sms
-    self.delay(run_at: 5.minutes.from_now).send_subscription_sms
+    self.delay(run_at: 23.hours.from_now).send_subscription_sms
   end
   
   def send_subscription_sms
@@ -23,7 +23,7 @@ class ConverstationRequest < ApplicationRecord
         sending_from: self.registered_number.number,
         sending_to: self.requester.contact_no
       )
-      self.delay(run_at: 5.minutes.from_now).send_subscription_sms
+      self.delay(run_at: 23.hours.from_now).send_subscription_sms
     end
   end
 
