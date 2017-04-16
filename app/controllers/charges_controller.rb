@@ -6,6 +6,33 @@ class ChargesController < ApplicationController
   def preview
   end
 
+  def subscribe
+
+  end
+
+  def conversation_subscription
+    conv_req = ConverstationRequest.find params[:conversation_request_id]
+
+    @amount = params[:amount]
+    
+    customer = Stripe::Customer.create(
+      :email => params[:stripeEmail],
+      :source  => params[:stripeToken]
+    )
+
+    charge = Stripe::Charge.create(
+      :customer    => customer.id,
+      :amount      => @amount,
+      :description => 'Rails Stripe customer',
+      :currency    => 'usd'
+    )
+
+    reg_number = conv_req.registered_number
+    reg_number.update_attribute(:subscribed, true)
+
+    redirect_to success_charges_path
+  end
+
   def create
     # Amount in cents
     @amount = params[:amount]

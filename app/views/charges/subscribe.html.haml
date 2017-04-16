@@ -1,0 +1,17 @@
+%h3 Subscribe conversation
+= form_tag conversation_subscription_charges_path do
+  = hidden_field_tag :conversation_request_id, params[:conversation_request_id]
+  = hidden_field_tag :amount, 1000
+  %article
+    - if flash[:error].present?
+      #error_explanation
+        %p= flash[:error]
+    %label.amount
+      %span Amount: $10
+
+  %script{ "src" => "https://checkout.stripe.com/checkout.js",
+    "class" => "stripe-button",
+    "data-key" => Rails.configuration.stripe[:publishable_key],
+    "data-description" => "A month's subscription",
+    "data-amount" => "1000",
+    "data-locale" => "auto"}

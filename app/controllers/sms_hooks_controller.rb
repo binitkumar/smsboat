@@ -5,7 +5,6 @@ class SmsHooksController < ApplicationController
     message = params[:Body]
 
     requester = Requester.where(contact_no: requester_contact_no).first_or_create
-    
     ConverstationRequest.create(requester: requester, message: message)
 
     render xml: "<message>success</message>"
@@ -28,6 +27,7 @@ class SmsHooksController < ApplicationController
     request = connecting_line.converstation_requests.where(status: 'Open').first
     booked_request = connecting_line.converstation_requests.where(status: 'Booked', expert: expert).first
     requester_booked_request = connecting_line.converstation_requests.where(status: 'Booked', requester: requester ).first
+
     if expert
       if request
         request.status = 'Booked'
@@ -51,7 +51,7 @@ class SmsHooksController < ApplicationController
       else
         SmsMessage.create(
           expert: expert,
-          message: "Converstation already taken",
+          message: I18n.t("conversation_taken"),
           sending_from: connecting_no,
           sending_to: expert.contact_no
         )
@@ -70,7 +70,7 @@ class SmsHooksController < ApplicationController
       else
         SmsMessage.create(
           requester: requester,
-          message: 'No ongoing conversation found for you',
+          message: I18n.t("no_ongoing_conversation"),
           sending_from: connecting_no,
           sending_to: requester.contact_no
         )
@@ -87,7 +87,7 @@ class SmsHooksController < ApplicationController
       get_credit_url = "http://#{Rails.application.secrets.domain_name}/charges/preview?requester_id=#{requester.id}"
       shorten = @url_shortener_client.shorten( get_credit_url )
       SmsMessage.create(
-        message: "Uses limit exhausted. Please add credit to your account using this link #{shorten.shortUrl}",
+        message: I18n.t("uses_limit_exhausted", credit_url: shorten.shortUrl),
         sending_from: connecting_no,
         sending_to: requester.contact_no
       )

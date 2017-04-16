@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     collection do
       get :preview
       get :success
+      get :subscribe
+      post :conversation_subscription
     end
   end
   resources :sms_messages
